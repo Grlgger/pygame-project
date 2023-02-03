@@ -9,6 +9,8 @@ hero_images = [pygame.transform.scale(pygame.image.load('hero1.png'), (76, 120))
                pygame.transform.scale(pygame.image.load('hero3.png'), (76, 120))]
 stars = []
 
+# начальный экран
+
 def start_screen():
     global best_score
 
@@ -41,6 +43,8 @@ def start_screen():
     screen.blit(text_2, (100, 220))
     screen.blit(text_3, (440, 340))
 
+    # добавление движущихся звёзд
+    
     for i in range(40):
         star = pygame.image.load('star.png')
         stars.append([star, star.get_rect(midbottom=(random.randint(30, 1900), random.randint(30, 500)))])
@@ -56,6 +60,9 @@ def start_screen():
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 s.stop()
                 new_game()
+                
+            # взаимодействие с главным героем
+                
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if hero_rect.collidepoint(event.pos):
                     captain_jack_sparrow = pygame.mixer.Sound("captain_jack_sparrow_quote.mp3")
@@ -119,7 +126,9 @@ def new_game():
 
     running = True
     while running:
-
+      
+        # зацикливание музыки
+        
         if score % 5100 == 0:
             parrot_counter = 0
             music.stop()
@@ -254,6 +263,7 @@ def new_game():
             score += 1
 
         else:
+            # проигрыш
             hero = pygame.transform.scale(pygame.image.load('hero4.png'), (120, 76))
             hero_rect = hero.get_rect(midbottom=(400, 760))
             hero_rect.bottom = 760
