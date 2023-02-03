@@ -2,7 +2,9 @@ import pygame
 import random
 
 pygame.init()
+
 best_score = 0
+
 music = pygame.mixer.Sound("game_music.mp3")
 lose_music = pygame.mixer.Sound("lose.mp3")
 hero_images = [pygame.transform.scale(pygame.image.load('hero1.png'), (76, 120)),
@@ -44,6 +46,7 @@ def start_screen():
     for i in range(40):
         star = pygame.image.load('star.png')
         stars.append([star, star.get_rect(midbottom=(random.randint(30, 1900), random.randint(30, 500)))])
+        
     for star, rect in stars:
         screen.blit(star, rect)
 
@@ -53,13 +56,16 @@ def start_screen():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+                
             if event.type == pygame.KEYDOWN and event.key == pygame.K_SPACE:
                 s.stop()
                 new_game()
+                
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if hero_rect.collidepoint(event.pos):
                     captain_jack_sparrow = pygame.mixer.Sound("captain_jack_sparrow_quote.mp3")
                     captain_jack_sparrow.play()
+                    
         pygame.display.update()
     pygame.quit()
 
@@ -140,36 +146,43 @@ def new_game():
 
         if score_rum_rect.left <= -100:
             score_rum_rect.left += random.randint(3000, 3500)
+            
             if score_rum_rect.colliderect(enemy_pirate_rect) or score_rum_rect.colliderect(oct_rect):
                 score_rum_rect.left += random.randint(3000, 3500)
 
         if oct_rect.left <= -100:
             oct_rect.left += random.randint(2000, 3000)
+            
             if not oct_rect.colliderect(enemy_pirate_rect) and not oct_rect.colliderect(score_rum_rect):
                 oct_rect.left += random.randint(2000, 3000)
 
         if enemy_pirate_rect.left <= -100:
             enemy_pirate_rect.left += random.randint(5000, 6500)
+            
             if not enemy_pirate_rect.colliderect(oct_rect) and not enemy_pirate_rect.colliderect(score_rum_rect):
                 enemy_pirate_rect.left += random.randint(5000, 6500)
 
         if barrel_rect.left <= -100:
             barrel_rect.left += random.randint(7000, 7800)
+            
             if not barrel_rect.colliderect(parrot_rect) and not barrel_rect.colliderect(coins_rect):
                 barrel_rect.left += random.randint(7000, 7800)
 
         if coins_rect.left <= -100:
             coins_rect.left += random.randint(8500, 10000)
+            
             if not coins_rect.colliderect(parrot_rect) and not coins_rect.colliderect(barrel_rect):
                 coins_rect.left += random.randint(8500, 10000)
 
         if rope_rect.left <= -100:
             rope_rect.left += random.randint(12000, 14000)
+            
             if not rope_rect.colliderect(parrot_rect) and not rope_rect.colliderect(coins_rect):
                 rope_rect.left += random.randint(12000, 14000)
 
         if parrot_rect.left <= -100:
             parrot_rect.left += random.randint(17000, 17500)
+            
             if not parrot_rect.colliderect(barrel_rect) and not parrot_rect.colliderect(coins_rect):
                 parrot_rect.left += random.randint(17000, 17500)
 
@@ -180,6 +193,7 @@ def new_game():
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+                
             if game_continue:
                 if event.type == pygame.KEYDOWN and hero_rect.bottom == 760 and event.key == pygame.K_SPACE:
                     hero_gravity = -25
@@ -211,6 +225,7 @@ def new_game():
 
             if hero_rect.bottom == 760:
                 screen.blit(hero_images[run_counter], hero_rect)
+                
             else:
                 screen.blit(pygame.transform.scale(pygame.image.load('hero2.png'), (76, 120)), hero_rect)
 
@@ -238,6 +253,7 @@ def new_game():
 
             if parrot_rect.x <= 1920:
                 parrot_counter += 1
+                
                 if parrot_counter == 1:
                     parrot_sound = pygame.mixer.Sound("parrot_sound.mp3")
                     parrot_sound.play(1)
